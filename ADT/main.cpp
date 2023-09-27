@@ -12,9 +12,10 @@ typedef struct Profile {
 	char* email;
 	char* telephone;
 	unsigned int age;
+	int money;
 };
 
-Profile* createProfile(const char* name, const char* email, const char* telephone, unsigned int age) {
+Profile* createProfile(const char* name, const char* email, const char* telephone, unsigned int age, int money) {
 	Profile* profile = (struct Profile*)malloc(sizeof(struct Profile));
 	if (profile == NULL) {
 		fprintf(stderr, "Memory allocation failed.\n");
@@ -43,6 +44,7 @@ Profile* createProfile(const char* name, const char* email, const char* telephon
 	strcpy(profile->email, email);
 	strcpy(profile->telephone, telephone);
 	profile->age = age;
+	profile->money = money;
 
 	return profile;
 }
@@ -64,6 +66,11 @@ void printProfileInfo(struct Profile* profile) {
 		printf("Почта: %s\n", profile->email);
 		printf("Телефон: %s\n", profile->telephone);
 	}
+}
+
+void topUpAccount(struct Profile* profile, int money) {
+	profile->money += money;
+	printf("Счет аккаунта %s успешно пополнен на сумму %d рублей.\n", profile->name, money);
 }
 
 typedef struct Timestamp {
@@ -210,20 +217,45 @@ void searchTicketsByPrice(struct FlightBookingService* fbs, int money) {
 	if (!is_found)
 		printf("Подходящих маршрутов не найдено.\n");
 }
-// void searchTicketsByCity
-// void searchTicketsByPrice
-// void bookTicket(const char* arrival_city, 
-// void printAvailableTickets()
 
+int compareTimestamps(struct Timestamp* lhs, struct Timestamp* rhs) {
+	if (lhs->day != rhs->day || lhs->month != rhs->month) return 0;
+	if (lhs->minute != rhs->minute || lhs->hour != rhs->hour) return 0;
+	return 1;
+}
+
+int compareDestinationPoints(struct DestinationPoint* lhs, struct DestinationPoint* rhs) {
+	if (lhs->ticket_price != rhs->ticket_price) return 0;
+	if (strcmp(lhs->departure_city, rhs->departure_city) != 0) return 0;
+	if (strcmp(lhs->arrival_city, rhs->arrival_city) != 0) return 0;
+	if (compareTimestamps(&lhs->departure_time, &rhs->departure_time) != 1) return 0;
+	if (compareTimestamps(&lhs->arrival_time, &rhs->arrival_time) != 1) return 0;
+	return 1;
+}
+
+void buyTicket(struct FlightBookingService* fbs, struct DestinationPoint* dp, struct Profile* profile) {
+	for (int i = 0; i < fbs->destinations_amount; ++i) {
+		if (compareDestinationPoints(&fbs->destinations[i], dp) == 1) {
+			if (profile->money >= dp->ticket_price) {
+				profile->money -= dp->ticket_price;
+				printf("Билет успешно куплен, с вашего счета списано %d рублей.\n", dp->ticket_price);
+			}
+			else {
+				printf("На счету недостаточно средств, покупка билета отменена...\n");
+			}
+		}
+	}
+}
 
 int main(void) {
 	setlocale(LC_ALL, "ru");
 	Timestamp* timestamp = createTimestamp(12, 10, 23, 9);
 	Timestamp* timestamp2 = createTimestamp(18, 15, 23, 9);
 	DestinationPoint* dp = createDestinationPoint(20000, "Barnaul", "Stockholm", timestamp, timestamp2);
-	Profile* profile = createProfile("kava", "kava@kava.com", "1488", 18);
+	Profile* profile = createProfile("kava", "kava@kava.com", "1488", 18, 30000);
 	FlightBookingService* fbs = createFlightBookingService(profile);
 	addDestinationPoint(fbs, dp);
-	searchTicketsByPrice(fbs, 19999);
+	buyTicket(fbs, dp, profile);
+	printf("%d", profile->money);
 	return 0;
 }
