@@ -1,6 +1,2 @@
-﻿  main.cpp
-C:\Users\timof\source\repos\ADT\ADT\main.cpp(16,2): warning C4091: typedef : пропускается слева от "Profile", когда ни одна переменная не объявлена
-C:\Users\timof\source\repos\ADT\ADT\main.cpp(81,2): warning C4091: typedef : пропускается слева от "Timestamp", когда ни одна переменная не объявлена
-C:\Users\timof\source\repos\ADT\ADT\main.cpp(112,2): warning C4091: typedef : пропускается слева от "DestinationPoint", когда ни одна переменная не объявлена
-C:\Users\timof\source\repos\ADT\ADT\main.cpp(163,2): warning C4091: typedef : пропускается слева от "FlightBookingService", когда ни одна переменная не объявлена
+﻿  cpp.cpp
   ADT.vcxproj -> C:\Users\timof\source\repos\ADT\x64\Debug\ADT.exe
