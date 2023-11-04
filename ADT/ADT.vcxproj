@@ -19,10 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Account.cpp" />
+    <ClCompile Include="TravelService.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Route.cpp" />
+    <ClCompile Include="Timestamp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FlightBookingService_CPP.h" />
+    <ClInclude Include="Account.h" />
+    <ClInclude Include="TravelService.h" />
+    <ClInclude Include="Route.h" />
+    <ClInclude Include="Timestamp.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
