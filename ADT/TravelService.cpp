@@ -1,4 +1,4 @@
-#include "TravelService.h"
+п»ї#include "TravelService.h"
 #include <iostream>
 
 TravelService::TravelService(
@@ -24,15 +24,15 @@ TravelService::~TravelService() {
 	delete account;
 }
 
-// Статический метод, необходимый для создания экземпляра класса FlightBookingService через консоль.
+// РЎС‚Р°С‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ, РЅРµРѕР±С…РѕРґРёРјС‹Р№ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР° FlightBookingService С‡РµСЂРµР· РєРѕРЅСЃРѕР»СЊ.
 TravelService TravelService::createFromConsole() {
 	return TravelService(Account::createFromConsole());
 }
 
-// Метод, распечатывающий информации обо всех существующих маршрутах.
+// РњРµС‚РѕРґ, СЂР°СЃРїРµС‡Р°С‚С‹РІР°СЋС‰РёР№ РёРЅС„РѕСЂРјР°С†РёРё РѕР±Рѕ РІСЃРµС… СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС… РјР°СЂС€СЂСѓС‚Р°С….
 void TravelService::printAvailableRouts() const {
 	if (!routes.empty()) {
-		std::cout << "Доступные маршруты:\n\n";
+		std::cout << "Р”РѕСЃС‚СѓРїРЅС‹Рµ РјР°СЂС€СЂСѓС‚С‹:\n\n";
 		std::size_t index = 1;
 
 		for (const auto& route : routes) {
@@ -41,20 +41,20 @@ void TravelService::printAvailableRouts() const {
 		}
 	}
 	else {
-		std::cout << "В данный момент нет доступных маршрутов.\n";
+		std::cout << "Р’ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ РЅРµС‚ РґРѕСЃС‚СѓРїРЅС‹С… РјР°СЂС€СЂСѓС‚РѕРІ.\n";
 	}
 }
 
-// Метод, распечатывающий информацию об аккаунте.
+// РњРµС‚РѕРґ, СЂР°СЃРїРµС‡Р°С‚С‹РІР°СЋС‰РёР№ РёРЅС„РѕСЂРјР°С†РёСЋ РѕР± Р°РєРєР°СѓРЅС‚Рµ.
 void TravelService::printAccountInfo() const {
-	std::cout << "Данные аккаунта:\n";
-	std::cout << "ФИО: " << account->name << '\n';
-	std::cout << "Возраст: " << account->age << '\n';
-	std::cout << "Почта: " << account->email << '\n';
-	std::cout << "Телефон: " << account->telephone << "\n\n";
+	std::cout << "Р”Р°РЅРЅС‹Рµ Р°РєРєР°СѓРЅС‚Р°:\n";
+	std::cout << "Р¤РРћ: " << account->name << '\n';
+	std::cout << "Р’РѕР·СЂР°СЃС‚: " << account->age << '\n';
+	std::cout << "РџРѕС‡С‚Р°: " << account->email << '\n';
+	std::cout << "РўРµР»РµС„РѕРЅ: " << account->telephone << "\n\n";
 }
 
-// Метод, предназначенный для изменения информации профиля.
+// РњРµС‚РѕРґ, РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Р№ РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё РїСЂРѕС„РёР»СЏ.
 void TravelService::changeAccountInfo(
 	const std::string& name,
 	const std::string& email,
@@ -65,49 +65,49 @@ void TravelService::changeAccountInfo(
 	account->email = email;
 	account->telephone = telephone;
 	account->age = age;
-	std::cout << "Учетные данные Вашего аккаунта успешно изменены.\n\n";
+	std::cout << "РЈС‡РµС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ Р’Р°С€РµРіРѕ Р°РєРєР°СѓРЅС‚Р° СѓСЃРїРµС€РЅРѕ РёР·РјРµРЅРµРЅС‹.\n\n";
 }
 
-// Метод, возвращающий баланс пользователя.
+// РњРµС‚РѕРґ, РІРѕР·РІСЂР°С‰Р°СЋС‰РёР№ Р±Р°Р»Р°РЅСЃ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ.
 int TravelService::getBalance() const {
 	return account->balance;
 }
 
-// Метод, предназначенный для пополнения баланса пользователя.
+// РњРµС‚РѕРґ, РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Р№ РґР»СЏ РїРѕРїРѕР»РЅРµРЅРёСЏ Р±Р°Р»Р°РЅСЃР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ.
 void TravelService::topUpBalance(int amount) {
 	account->balance += amount;
-	std::cout << "Ваш баланс успешно пополнен на " << amount << " рублей.\n";
-	std::cout << "Теперь он составляет " << account->balance << " рублей.\n\n";
+	std::cout << "Р’Р°С€ Р±Р°Р»Р°РЅСЃ СѓСЃРїРµС€РЅРѕ РїРѕРїРѕР»РЅРµРЅ РЅР° " << amount << " СЂСѓР±Р»РµР№.\n";
+	std::cout << "РўРµРїРµСЂСЊ РѕРЅ СЃРѕСЃС‚Р°РІР»СЏРµС‚ " << account->balance << " СЂСѓР±Р»РµР№.\n\n";
 }
 
-// Метод, предназначенный для добавления маршрутов.
+// РњРµС‚РѕРґ, РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Р№ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РјР°СЂС€СЂСѓС‚РѕРІ.
 void TravelService::addRoute(const Route& route) {
 	for (const auto& rt : routes) {
 		if (rt == route) {
-			std::cout << "Данный маршрут уже существует, добавление невозможно.\n";
+			std::cout << "Р”Р°РЅРЅС‹Р№ РјР°СЂС€СЂСѓС‚ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚, РґРѕР±Р°РІР»РµРЅРёРµ РЅРµРІРѕР·РјРѕР¶РЅРѕ.\n";
 			return;
 		}
 	}
 	routes.push_back(route);
-	std::cout << "Маршрут успешно добавлен.\n";
+	std::cout << "РњР°СЂС€СЂСѓС‚ СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅ.\n";
 }
 
-// Метод, предназначенный для удаления маршрута.
+// РњРµС‚РѕРґ, РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Р№ РґР»СЏ СѓРґР°Р»РµРЅРёСЏ РјР°СЂС€СЂСѓС‚Р°.
 void TravelService::removeRoute(const Route& route) {
 	std::size_t index = 0;
 	for (const auto& rt : routes) {
 		if (rt == route) {
 			routes.erase(routes.begin() + index);
-			std::cout << "Маршрут успешно удален.\n";
+			std::cout << "РњР°СЂС€СЂСѓС‚ СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅ.\n";
 			return;
 		}
 		index++;
 	}
-	std::cout << "Данный маршрут не найден, удаление невозможно.\n";
+	std::cout << "Р”Р°РЅРЅС‹Р№ РјР°СЂС€СЂСѓС‚ РЅРµ РЅР°Р№РґРµРЅ, СѓРґР°Р»РµРЅРёРµ РЅРµРІРѕР·РјРѕР¶РЅРѕ.\n";
 }
 
-// Метод, производящий поиск маршрутов по выбранному городу.
-// Выводит список всех доступных городов, город посадки которых совпадает с выбранным.
+// РњРµС‚РѕРґ, РїСЂРѕРёР·РІРѕРґСЏС‰РёР№ РїРѕРёСЃРє РјР°СЂС€СЂСѓС‚РѕРІ РїРѕ РІС‹Р±СЂР°РЅРЅРѕРјСѓ РіРѕСЂРѕРґСѓ.
+// Р’С‹РІРѕРґРёС‚ СЃРїРёСЃРѕРє РІСЃРµС… РґРѕСЃС‚СѓРїРЅС‹С… РіРѕСЂРѕРґРѕРІ, РіРѕСЂРѕРґ РїРѕСЃР°РґРєРё РєРѕС‚РѕСЂС‹С… СЃРѕРІРїР°РґР°РµС‚ СЃ РІС‹Р±СЂР°РЅРЅС‹Рј.
 void TravelService::searchTicketsByCity(const std::string& desired_city) const {
 	bool is_found = false;
 	std::size_t index = 1;
@@ -115,7 +115,7 @@ void TravelService::searchTicketsByCity(const std::string& desired_city) const {
 		if (rt.arrival_city == desired_city) {
 			if (!is_found) {
 				is_found = true;
-				std::cout << "Найдены следующие маршруты до города " << desired_city << ":\n";
+				std::cout << "РќР°Р№РґРµРЅС‹ СЃР»РµРґСѓСЋС‰РёРµ РјР°СЂС€СЂСѓС‚С‹ РґРѕ РіРѕСЂРѕРґР° " << desired_city << ":\n";
 			}
 			std::cout << index++ << ". ";
 			rt.printRouteInfo();
@@ -123,12 +123,12 @@ void TravelService::searchTicketsByCity(const std::string& desired_city) const {
 	}
 
 	if (!is_found) {
-		std::cout << "Подходящих маршрутов не найдено.\n";
+		std::cout << "РџРѕРґС…РѕРґСЏС‰РёС… РјР°СЂС€СЂСѓС‚РѕРІ РЅРµ РЅР°Р№РґРµРЅРѕ.\n";
 	}
 }
 
-// Метод, производящий поиск маршрутов по заданной цене.
-// Выводит список всех доступных городов, цена билетов которых не превышает заданную.
+// РњРµС‚РѕРґ, РїСЂРѕРёР·РІРѕРґСЏС‰РёР№ РїРѕРёСЃРє РјР°СЂС€СЂСѓС‚РѕРІ РїРѕ Р·Р°РґР°РЅРЅРѕР№ С†РµРЅРµ.
+// Р’С‹РІРѕРґРёС‚ СЃРїРёСЃРѕРє РІСЃРµС… РґРѕСЃС‚СѓРїРЅС‹С… РіРѕСЂРѕРґРѕРІ, С†РµРЅР° Р±РёР»РµС‚РѕРІ РєРѕС‚РѕСЂС‹С… РЅРµ РїСЂРµРІС‹С€Р°РµС‚ Р·Р°РґР°РЅРЅСѓСЋ.
 void TravelService::searchTicketsByPrice(int available_money) const {
 	bool is_found = false;
 	std::size_t index = 1;
@@ -136,7 +136,7 @@ void TravelService::searchTicketsByPrice(int available_money) const {
 		if (rt.ticket_price <= available_money) {
 			if (!is_found) {
 				is_found = true;
-				std::cout << "Найдены следующие маршруты стоимостью до " << available_money << " рублей:\n";
+				std::cout << "РќР°Р№РґРµРЅС‹ СЃР»РµРґСѓСЋС‰РёРµ РјР°СЂС€СЂСѓС‚С‹ СЃС‚РѕРёРјРѕСЃС‚СЊСЋ РґРѕ " << available_money << " СЂСѓР±Р»РµР№:\n";
 			}
 			std::cout << index++ << ". ";
 			rt.printRouteInfo();
@@ -144,14 +144,14 @@ void TravelService::searchTicketsByPrice(int available_money) const {
 	}
 
 	if (!is_found) {
-		std::cout << "Подходящих маршрутов не найдено.\n";
+		std::cout << "РџРѕРґС…РѕРґСЏС‰РёС… РјР°СЂС€СЂСѓС‚РѕРІ РЅРµ РЅР°Р№РґРµРЅРѕ.\n";
 	}
 }
 
-// Метод, предназначенный для покупки билетов.
+// РњРµС‚РѕРґ, РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Р№ РґР»СЏ РїРѕРєСѓРїРєРё Р±РёР»РµС‚РѕРІ.
 void TravelService::buyTicket(const Route& route) const {
 	if (account->ticket != nullptr) {
-		std::cout << "У Вас уже куплен билет, купить еще один невозможно.\n\n";
+		std::cout << "РЈ Р’Р°СЃ СѓР¶Рµ РєСѓРїР»РµРЅ Р±РёР»РµС‚, РєСѓРїРёС‚СЊ РµС‰Рµ РѕРґРёРЅ РЅРµРІРѕР·РјРѕР¶РЅРѕ.\n\n";
 		return;
 	}
 
@@ -162,8 +162,8 @@ void TravelService::buyTicket(const Route& route) const {
 				account->ticket = new Route();
 				*account->ticket = route;
 				account->balance -= route.ticket_price;
-				std::cout << "Билет успешно куплен, на вашем счету "
-					"осталось " << account->balance << " рублей.\n\n";
+				std::cout << "Р‘РёР»РµС‚ СѓСЃРїРµС€РЅРѕ РєСѓРїР»РµРЅ, РЅР° РІР°С€РµРј СЃС‡РµС‚Сѓ "
+					"РѕСЃС‚Р°Р»РѕСЃСЊ " << account->balance << " СЂСѓР±Р»РµР№.\n\n";
 				return;
 			}
 			else {
@@ -172,26 +172,26 @@ void TravelService::buyTicket(const Route& route) const {
 		}
 	}
 	if (is_not_enough_money) {
-		std::cout << "На Вашем счету недостаточно средств для покупки билета.\n\n";
+		std::cout << "РќР° Р’Р°С€РµРј СЃС‡РµС‚Сѓ РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃСЂРµРґСЃС‚РІ РґР»СЏ РїРѕРєСѓРїРєРё Р±РёР»РµС‚Р°.\n\n";
 	}
 	else {
-		std::cout << "Данный маршрут пока недоступен.\n\n";
+		std::cout << "Р”Р°РЅРЅС‹Р№ РјР°СЂС€СЂСѓС‚ РїРѕРєР° РЅРµРґРѕСЃС‚СѓРїРµРЅ.\n\n";
 	}
 }
 
-// Метод, предназначенный для продажи билета.
+// РњРµС‚РѕРґ, РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Р№ РґР»СЏ РїСЂРѕРґР°Р¶Рё Р±РёР»РµС‚Р°.
 void TravelService::sellTicket() {
 	if (account->ticket != nullptr) {
 		account->balance += account->ticket->ticket_price;
 		delete account->ticket;
 		account->ticket = nullptr;
-		std::cout << "Билет успешно продан, на Вашем счету " << account->balance << " рублей.\n\n";
+		std::cout << "Р‘РёР»РµС‚ СѓСЃРїРµС€РЅРѕ РїСЂРѕРґР°РЅ, РЅР° Р’Р°С€РµРј СЃС‡РµС‚Сѓ " << account->balance << " СЂСѓР±Р»РµР№.\n\n";
 	}
-	else std::cout << "На Вашем аккаунте нет купленных билетов.\n\n";
+	else std::cout << "РќР° Р’Р°С€РµРј Р°РєРєР°СѓРЅС‚Рµ РЅРµС‚ РєСѓРїР»РµРЅРЅС‹С… Р±РёР»РµС‚РѕРІ.\n\n";
 }
 
-// Метод, распечатывающий информацию о купленном билете.
+// РњРµС‚РѕРґ, СЂР°СЃРїРµС‡Р°С‚С‹РІР°СЋС‰РёР№ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РєСѓРїР»РµРЅРЅРѕРј Р±РёР»РµС‚Рµ.
 void TravelService::printTicketInfo() const {
 	if (account->ticket) account->ticket->printRouteInfo();
-	else std::cout << "Билет не куплен, просмотреть информацию невозможно.\n";
+	else std::cout << "Р‘РёР»РµС‚ РЅРµ РєСѓРїР»РµРЅ, РїСЂРѕСЃРјРѕС‚СЂРµС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ РЅРµРІРѕР·РјРѕР¶РЅРѕ.\n";
 }

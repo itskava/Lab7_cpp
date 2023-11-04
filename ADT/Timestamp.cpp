@@ -1,4 +1,4 @@
-#include "Timestamp.h"
+п»ї#include "Timestamp.h"
 #include <iostream>
 
 Timestamp::Timestamp()
@@ -18,16 +18,16 @@ Timestamp::Timestamp(const Timestamp& other) {
 
 Timestamp::~Timestamp() = default;
 
-// Статический метод, необходимый для создания экземпляра класса Timestamp через консоль.
+// РЎС‚Р°С‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ, РЅРµРѕР±С…РѕРґРёРјС‹Р№ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР° Timestamp С‡РµСЂРµР· РєРѕРЅСЃРѕР»СЊ.
 Timestamp Timestamp::createFromConsole() {
 	int hour, minute, day, month;
-	std::cout << "Введите часы, минуты, день и месяц временной отметки через пробел (HH mm dd MM): ";
+	std::cout << "Р’РІРµРґРёС‚Рµ С‡Р°СЃС‹, РјРёРЅСѓС‚С‹, РґРµРЅСЊ Рё РјРµСЃСЏС† РІСЂРµРјРµРЅРЅРѕР№ РѕС‚РјРµС‚РєРё С‡РµСЂРµР· РїСЂРѕР±РµР» (HH mm dd MM): ";
 	std::cin >> hour >> minute >> day >> month;
 
 	return Timestamp(hour, minute, day, month);
 }
 
-// Метод, распечатывающий информацию о данной временной метке.
+// РњРµС‚РѕРґ, СЂР°СЃРїРµС‡Р°С‚С‹РІР°СЋС‰РёР№ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РґР°РЅРЅРѕР№ РІСЂРµРјРµРЅРЅРѕР№ РјРµС‚РєРµ.
 void Timestamp::printTimestamp() const {
 	if (hour < 10) std::cout << '0';
 	std::cout << hour << ':';

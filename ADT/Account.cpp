@@ -1,4 +1,4 @@
-#include "Account.h"
+п»ї#include "Account.h"
 #include <iostream>
 
 Account::Account(const std::string& name, const std::string& email, const std::string& tel, int age, int bal)
@@ -24,23 +24,23 @@ Account::~Account() {
 	if (ticket) delete ticket;
 }
 
-// Статический метод, необходимый для создания экземпляра класса Account через консоль.
+// РЎС‚Р°С‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ, РЅРµРѕР±С…РѕРґРёРјС‹Р№ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР° Account С‡РµСЂРµР· РєРѕРЅСЃРѕР»СЊ.
 Account Account::createFromConsole() {
 	std::string name, email, telephone;
 	int age, balance;
-	std::cout << "Введите Ваше ФИО: ";
+	std::cout << "Р’РІРµРґРёС‚Рµ Р’Р°С€Рµ Р¤РРћ: ";
 	std::getline(std::cin, name);
 
-	std::cout << "Введите Вашу почту: ";
+	std::cout << "Р’РІРµРґРёС‚Рµ Р’Р°С€Сѓ РїРѕС‡С‚Сѓ: ";
 	std::getline(std::cin, email);
 
-	std::cout << "Введите Ваш телефон: ";
+	std::cout << "Р’РІРµРґРёС‚Рµ Р’Р°С€ С‚РµР»РµС„РѕРЅ: ";
 	std::getline(std::cin, telephone);
 
-	std::cout << "Введите Ваш возраст: ";
+	std::cout << "Р’РІРµРґРёС‚Рµ Р’Р°С€ РІРѕР·СЂР°СЃС‚: ";
 	std::cin >> age;
 
-	std::cout << "Введите сумму, на которую будет сразу пополнен Ваш счёт: ";
+	std::cout << "Р’РІРµРґРёС‚Рµ СЃСѓРјРјСѓ, РЅР° РєРѕС‚РѕСЂСѓСЋ Р±СѓРґРµС‚ СЃСЂР°Р·Сѓ РїРѕРїРѕР»РЅРµРЅ Р’Р°С€ СЃС‡С‘С‚: ";
 	std::cin >> balance;
 
 	return Account(name, email, telephone, age, balance);

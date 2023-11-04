@@ -1,4 +1,4 @@
-#include "Route.h"
+п»ї#include "Route.h"
 #include <iostream>
 
 Route::Route(
@@ -28,36 +28,36 @@ Route::Route(const Route& other) {
 
 Route::~Route() = default;
 
-// Статический метод, необходимый для создания экземпляра класса Route через консоль.
+// РЎС‚Р°С‚РёС‡РµСЃРєРёР№ РјРµС‚РѕРґ, РЅРµРѕР±С…РѕРґРёРјС‹Р№ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ СЌРєР·РµРјРїР»СЏСЂР° РєР»Р°СЃСЃР° Route С‡РµСЂРµР· РєРѕРЅСЃРѕР»СЊ.
 Route Route::createFromConsole() {
 	int ticket_price;
-	std::cout << "Введите цену билета: ";
+	std::cout << "Р’РІРµРґРёС‚Рµ С†РµРЅСѓ Р±РёР»РµС‚Р°: ";
 	std::cin >> ticket_price;
 
 	std::string departure_city, arrival_city;
-	std::cout << "Введите город вылета: ";
+	std::cout << "Р’РІРµРґРёС‚Рµ РіРѕСЂРѕРґ РІС‹Р»РµС‚Р°: ";
 	std::cin >> departure_city;
 
-	std::cout << "Введите город посадки: ";
+	std::cout << "Р’РІРµРґРёС‚Рµ РіРѕСЂРѕРґ РїРѕСЃР°РґРєРё: ";
 	std::cin >> arrival_city;
 
-	std::cout << "Для вылета:\n";
+	std::cout << "Р”Р»СЏ РІС‹Р»РµС‚Р°:\n";
 	Timestamp departure_time = Timestamp::createFromConsole();
 
-	std::cout << "Для посадки:\n";
+	std::cout << "Р”Р»СЏ РїРѕСЃР°РґРєРё:\n";
 	Timestamp arrival_time = Timestamp::createFromConsole();
 
 	return Route(ticket_price, departure_city, arrival_city, departure_time, arrival_time);
 }
 
-// Метод, который распечатывает полную информацию о данном маршруте.
+// РњРµС‚РѕРґ, РєРѕС‚РѕСЂС‹Р№ СЂР°СЃРїРµС‡Р°С‚С‹РІР°РµС‚ РїРѕР»РЅСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РґР°РЅРЅРѕРј РјР°СЂС€СЂСѓС‚Рµ.
 void Route::printRouteInfo() const {
-	std::cout << "Маршрут: " << departure_city << " - " << arrival_city << '\n';
-	std::cout << "Время взлёта: ";
+	std::cout << "РњР°СЂС€СЂСѓС‚: " << departure_city << " - " << arrival_city << '\n';
+	std::cout << "Р’СЂРµРјСЏ РІР·Р»С‘С‚Р°: ";
 	departure_time.printTimestamp();
-	std::cout << "Время посадки: ";
+	std::cout << "Р’СЂРµРјСЏ РїРѕСЃР°РґРєРё: ";
 	arrival_time.printTimestamp();
-	std::cout << "Цена билета: " << ticket_price << "\n\n";
+	std::cout << "Р¦РµРЅР° Р±РёР»РµС‚Р°: " << ticket_price << "\n\n";
 }
 
 bool Route::operator==(const Route& other) const {
