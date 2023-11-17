@@ -29,7 +29,7 @@ Route::Route(const Route& other) {
 Route::~Route() = default;
 
 // Статический метод, необходимый для создания экземпляра класса Route через консоль.
-Route* Route::createFromConsole() {
+Route Route::createFromConsole() {
 	int ticket_price;
 	std::cout << "Введите цену билета: ";
 	std::cin >> ticket_price;
@@ -42,13 +42,12 @@ Route* Route::createFromConsole() {
 	std::cin >> arrival_city;
 
 	std::cout << "Для вылета:\n";
-	Timestamp* departure_time = Timestamp::createFromConsole();
+	Timestamp departure_time = Timestamp::createFromConsole();
 	 
 	std::cout << "Для посадки:\n";
-	Timestamp* arrival_time = Timestamp::createFromConsole();
+	Timestamp arrival_time = Timestamp::createFromConsole();
 
-	Route* route = new Route(ticket_price, departure_city, arrival_city, *departure_time, *arrival_time);
-	return route;
+	return Route(ticket_price, departure_city, arrival_city, departure_time, arrival_time);
 }
 
 bool Route::operator==(const Route& other) const {
@@ -79,6 +78,6 @@ std::ostream& operator<<(std::ostream& out, const Route& rt) {
 	std::string output = "Маршрут: " + rt.departure_city + " - " + rt.arrival_city + "\n";
 
 	return out << output << "Время взлёта: " << rt.departure_time << '\n' << "Время посадки: "
-		<< rt.arrival_time << '\n' << "Цена билета: " << rt.ticket_price << "\n\n";
+		<< rt.arrival_time << '\n' << "Цена билета: " << rt.ticket_price << std::endl;
 }
 

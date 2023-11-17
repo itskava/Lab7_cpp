@@ -17,9 +17,9 @@ TravelService::TravelService() {
 	account = new Account("", "", "", 0, 0);
 }
 
-TravelService::TravelService(Account* account) {
+TravelService::TravelService(const Account& account) {
 	this->account = new Account();
-	*this->account = *account;
+	*this->account = account;
 }
 
 TravelService::~TravelService() {
@@ -153,17 +153,11 @@ void TravelService::searchTicketsByPrice(int available_money) const {
 
 // Метод, предназначенный для покупки билетов.
 void TravelService::buyTicket(const Route& route) const {
-	if (account->ticket != nullptr) {
-		std::cout << "У Вас уже куплен билет, купить еще один невозможно.\n\n";
-		return;
-	}
-
 	bool is_not_enough_money = false;
 	for (const auto& rt : routes) {
 		if (rt == route) {
 			if (account->balance >= rt.ticket_price) {
-				account->ticket = new Route();
-				*account->ticket = route;
+				account->tickets.push_back(rt);
 				account->balance -= route.ticket_price;
 				profit += route.ticket_price;
 				std::cout << "Билет успешно куплен, на вашем счету "
@@ -184,24 +178,46 @@ void TravelService::buyTicket(const Route& route) const {
 }
 
 // Метод, предназначенный для продажи билета.
-void TravelService::sellTicket() {
-	if (account->ticket != nullptr) {
-		account->balance += account->ticket->ticket_price;
-		profit -= account->ticket->ticket_price;
-		delete account->ticket;
-		account->ticket = nullptr;
+void TravelService::sellTicket(std::size_t desired_ind) {
+	if (desired_ind < 1 || desired_ind > account->tickets.size()) {
+		std::cout << "Введен некорректный номер купленного билета." << std::endl;
+		return;
+	}
+
+	if (!account->tickets.empty()) {
+		std::size_t index = 1;
+		Route ticket;
+
+		for (auto it = account->tickets.begin(); it != account->tickets.end(); it++, index++) {
+			if (index == desired_ind) {
+				ticket = *it;
+				account->tickets.erase(it);
+				break;
+			}
+		}
+
+		account->balance += ticket.ticket_price;
+		profit -= ticket.ticket_price;
+
 		std::cout << "Билет успешно продан, на Вашем счету " << account->balance << " рублей.\n\n";
 	}
 	else std::cout << "На Вашем аккаунте нет купленных билетов.\n\n";
 }
 
 // Метод, распечатывающий информацию о купленном билете.
-void TravelService::printTicketInfo() const {
-	if (account->ticket) std::cout << *account->ticket;
-	else std::cout << "Билет не куплен, просмотреть информацию невозможно.\n";
+void TravelService::printTicketsInfo() const {
+	if (account->tickets.empty()) {
+		std::cout << "На Вашем аккаунте нет купленных билетов.\n";
+		return;
+	}
+
+	std::size_t index = 1;
+	for (const auto& route : account->tickets) {
+		std::cout << index++ << ". " << route << std::endl;
+	}
 }
 
 // Метод, распечатывающий информацию о прибыли компании.
-void TravelService::printCompanyProfit() const {
+void TravelService::printCompanyProfit() {
 	std::cout << "На данный момент прибыль компании составляет " << profit << " рублей.\n\n";
 }

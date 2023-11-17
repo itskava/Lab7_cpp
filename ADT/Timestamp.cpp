@@ -22,13 +22,12 @@ Timestamp::Timestamp(const Timestamp& other) {
 Timestamp::~Timestamp() = default;
 
 // Статический метод, необходимый для создания экземпляра класса Timestamp через консоль.
-Timestamp* Timestamp::createFromConsole() {
+Timestamp Timestamp::createFromConsole() {
 	int day, month, year, hour, minute;
 	std::cout << "Введите день, месяц, год, часы и минуты временной отметки через пробел (dd.MM.yyyy hh:mm): ";
 	std::cin >> day >> month >> year >> hour >> minute;
 	
-	Timestamp* timestamp = new Timestamp(day, month, year, hour, minute);
-	return timestamp;
+	return Timestamp(day, month, year, hour, minute);
 }
 
 // Служебный метод для определения високосного года.
@@ -89,10 +88,17 @@ Timestamp& Timestamp::operator=(const Timestamp& other) {
 	return *this;
 }
 
-Timestamp Timestamp::operator+(const Timestamp& other) {
-	Timestamp result = *this;
-	result.minute += other.minute;
-	result.hour += other.hour;
+Timestamp operator+(const Timestamp& lhs, const Timestamp& rhs) {
+	Timestamp result = lhs;
+	result.minute += rhs.minute;
+	result.hour += rhs.hour;
+	result.normalize();
+	return result;
+}
+
+Timestamp operator+(const Timestamp& timestamp, int val) {
+	Timestamp result = timestamp;
+	result.hour += val;
 	result.normalize();
 	return result;
 }

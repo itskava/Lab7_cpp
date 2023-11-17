@@ -29,7 +29,7 @@ public:
 
 	~Route();
 
-	static Route* createFromConsole();
+	static Route createFromConsole();
 
 	bool operator==(const Route& other) const;
 

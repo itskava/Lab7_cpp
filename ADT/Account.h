@@ -2,6 +2,7 @@
 
 #include "Route.h"
 #include <string>
+#include <list>
 
 // Класс, представляющий собой профиль пользователя;
 // Содержит информацию об имени, почте, телефоне и возрасте, а также о купленном билете.
@@ -12,7 +13,7 @@ private:
 	std::string telephone;
 	int age;
 	int balance;
-	Route* ticket;
+	std::list<Route> tickets;
 
 	friend class TravelService;
 
@@ -25,7 +26,7 @@ public:
 
 	~Account();
 
-	static Account* createFromConsole();
+	static Account createFromConsole();
 
 	Account& operator=(const Account& other);
 };

@@ -21,7 +21,7 @@ public:
 	
 	TravelService();
 
-	TravelService(Account* account);
+	TravelService(const Account& account);
 
 	~TravelService();
 
@@ -51,9 +51,9 @@ public:
 
 	void buyTicket(const Route& route) const;
 
-	void sellTicket();
+	void sellTicket(std::size_t index);
 
-	void printTicketInfo() const;
+	void printTicketsInfo() const;
 
-	void printCompanyProfit() const;
+	static void printCompanyProfit();
 };

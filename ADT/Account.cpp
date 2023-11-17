@@ -2,7 +2,7 @@
 #include <iostream>
 
 Account::Account(const std::string& name, const std::string& email, const std::string& tel, int age, int bal)
-	: name(name), email(email), telephone(tel), age(age), balance(bal), ticket(nullptr)
+	: name(name), email(email), telephone(tel), age(age), balance(bal)
 {}
 
 Account::Account()
@@ -15,17 +15,13 @@ Account::Account(const Account& other) {
 	this->telephone = other.telephone;
 	this->age = other.age;
 	this->balance = other.balance;
-
-	if (other.ticket) *this->ticket = *other.ticket;
-	else this->ticket = nullptr;
+	this->tickets.assign(other.tickets.begin(), other.tickets.end());
 }
 
-Account::~Account() {
-	if (ticket) delete ticket;
-}
+Account::~Account() = default;
 
 // Статический метод, необходимый для создания экземпляра класса Account через консоль.
-Account* Account::createFromConsole() {
+Account Account::createFromConsole() {
 	std::string name, email, telephone;
 	int age, balance;
 	std::cout << "Введите Ваше ФИО: ";
@@ -43,8 +39,7 @@ Account* Account::createFromConsole() {
 	std::cout << "Введите сумму, на которую будет сразу пополнен Ваш счёт: ";
 	std::cin >> balance;
 
-	Account* account = new Account(name, email, telephone, age, balance);
-	return account;
+	return Account(name, email, telephone, age, balance);
 }
 
 Account& Account::operator=(const Account& other) {
@@ -55,6 +50,7 @@ Account& Account::operator=(const Account& other) {
 	this->telephone = other.telephone;
 	this->age = other.age;
 	this->balance = other.balance;
+	this->tickets.assign(other.tickets.begin(), other.tickets.end());
 
 	return *this;
 }

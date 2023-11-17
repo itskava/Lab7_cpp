@@ -25,7 +25,7 @@ public:
 
 	~Timestamp();
 
-	static Timestamp* createFromConsole();
+	static Timestamp createFromConsole();
 
 	bool operator==(const Timestamp& other) const;
 
@@ -33,11 +33,13 @@ public:
 
 	Timestamp& operator=(const Timestamp& other);
 
-	Timestamp operator+(const Timestamp& other);
-
 	Timestamp& operator++();
 
 	Timestamp operator++(int);
 
 	friend std::ostream& operator<<(std::ostream& out, const Timestamp& tm);
+
+	friend Timestamp operator+(const Timestamp& lhs, const Timestamp& rhs);
+
+	friend Timestamp operator+(const Timestamp& timestamp, int val);
 };
