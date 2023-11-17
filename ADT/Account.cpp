@@ -5,8 +5,8 @@ Account::Account(const std::string& name, const std::string& email, const std::s
 	: name(name), email(email), telephone(tel), age(age), balance(bal), ticket(nullptr)
 {}
 
-Account::Account() 
-	: name(""), email(""), telephone(""), age(0), balance(0), ticket(nullptr)
+Account::Account()
+	: Account("", "", "", 0, 0)
 {}
 
 Account::Account(const Account& other) {
@@ -25,7 +25,7 @@ Account::~Account() {
 }
 
 // Статический метод, необходимый для создания экземпляра класса Account через консоль.
-Account Account::createFromConsole() {
+Account* Account::createFromConsole() {
 	std::string name, email, telephone;
 	int age, balance;
 	std::cout << "Введите Ваше ФИО: ";
@@ -43,7 +43,8 @@ Account Account::createFromConsole() {
 	std::cout << "Введите сумму, на которую будет сразу пополнен Ваш счёт: ";
 	std::cin >> balance;
 
-	return Account(name, email, telephone, age, balance);
+	Account* account = new Account(name, email, telephone, age, balance);
+	return account;
 }
 
 Account& Account::operator=(const Account& other) {

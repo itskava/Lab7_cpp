@@ -9,6 +9,8 @@ class TravelService {
 private:
 	std::vector<Route> routes;
 	Account* account;
+	static long profit;
+
 public:
 	TravelService(
 		const std::string& name,
@@ -16,14 +18,14 @@ public:
 		const std::string& telephone,
 		int age,
 		int balance);
-
+	
 	TravelService();
 
-	TravelService(const Account& account);
+	TravelService(Account* account);
 
 	~TravelService();
 
-	static TravelService createFromConsole();
+	static TravelService* createFromConsole();
 
 	void printAvailableRouts() const;
 
@@ -52,4 +54,6 @@ public:
 	void sellTicket();
 
 	void printTicketInfo() const;
+
+	void printCompanyProfit() const;
 };

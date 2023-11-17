@@ -14,6 +14,7 @@ private:
 	Timestamp arrival_time;
 
 	friend class TravelService;
+
 public:
 	Route(
 		int ticket_price,
@@ -28,9 +29,7 @@ public:
 
 	~Route();
 
-	static Route createFromConsole();
-
-	void printRouteInfo() const;
+	static Route* createFromConsole();
 
 	bool operator==(const Route& other) const;
 
@@ -38,4 +37,5 @@ public:
 
 	Route& operator=(const Route& other);
 
+	friend std::ostream& operator<<(std::ostream& out, const Route& rt);
 };

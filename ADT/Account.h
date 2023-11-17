@@ -15,16 +15,17 @@ private:
 	Route* ticket;
 
 	friend class TravelService;
-public:
-	Account(const std::string& name, const std::string& email, const std::string& tel, int age, int bal);
 
+public:
 	Account();
+
+	Account(const std::string& name, const std::string& email, const std::string& tel, int age, int bal);
 
 	Account(const Account& other);
 
 	~Account();
 
-	static Account createFromConsole();
+	static Account* createFromConsole();
 
 	Account& operator=(const Account& other);
 };

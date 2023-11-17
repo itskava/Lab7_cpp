@@ -1,6 +1,8 @@
 ﻿#include "TravelService.h"
 #include <iostream>
 
+long TravelService::profit = 0;
+
 TravelService::TravelService(
 	const std::string& name,
 	const std::string& email,
@@ -15,9 +17,9 @@ TravelService::TravelService() {
 	account = new Account("", "", "", 0, 0);
 }
 
-TravelService::TravelService(const Account& account) {
+TravelService::TravelService(Account* account) {
 	this->account = new Account();
-	*this->account = account;
+	*this->account = *account;
 }
 
 TravelService::~TravelService() {
@@ -25,8 +27,9 @@ TravelService::~TravelService() {
 }
 
 // Статический метод, необходимый для создания экземпляра класса FlightBookingService через консоль.
-TravelService TravelService::createFromConsole() {
-	return TravelService(Account::createFromConsole());
+TravelService* TravelService::createFromConsole() {
+	TravelService* travel_service = new TravelService(Account::createFromConsole());
+	return travel_service;
 }
 
 // Метод, распечатывающий информации обо всех существующих маршрутах.
@@ -37,7 +40,7 @@ void TravelService::printAvailableRouts() const {
 
 		for (const auto& route : routes) {
 			std::cout << index++ << ". ";
-			route.printRouteInfo();
+			std::cout << route << std::endl;
 		}
 	}
 	else {
@@ -118,7 +121,7 @@ void TravelService::searchTicketsByCity(const std::string& desired_city) const {
 				std::cout << "Найдены следующие маршруты до города " << desired_city << ":\n";
 			}
 			std::cout << index++ << ". ";
-			rt.printRouteInfo();
+			std::cout << rt << std::endl;
 		}
 	}
 
@@ -139,7 +142,7 @@ void TravelService::searchTicketsByPrice(int available_money) const {
 				std::cout << "Найдены следующие маршруты стоимостью до " << available_money << " рублей:\n";
 			}
 			std::cout << index++ << ". ";
-			rt.printRouteInfo();
+			std::cout << rt << std::endl;
 		}
 	}
 
@@ -162,6 +165,7 @@ void TravelService::buyTicket(const Route& route) const {
 				account->ticket = new Route();
 				*account->ticket = route;
 				account->balance -= route.ticket_price;
+				profit += route.ticket_price;
 				std::cout << "Билет успешно куплен, на вашем счету "
 					"осталось " << account->balance << " рублей.\n\n";
 				return;
@@ -183,6 +187,7 @@ void TravelService::buyTicket(const Route& route) const {
 void TravelService::sellTicket() {
 	if (account->ticket != nullptr) {
 		account->balance += account->ticket->ticket_price;
+		profit -= account->ticket->ticket_price;
 		delete account->ticket;
 		account->ticket = nullptr;
 		std::cout << "Билет успешно продан, на Вашем счету " << account->balance << " рублей.\n\n";
@@ -192,6 +197,11 @@ void TravelService::sellTicket() {
 
 // Метод, распечатывающий информацию о купленном билете.
 void TravelService::printTicketInfo() const {
-	if (account->ticket) account->ticket->printRouteInfo();
+	if (account->ticket) std::cout << *account->ticket;
 	else std::cout << "Билет не куплен, просмотреть информацию невозможно.\n";
+}
+
+// Метод, распечатывающий информацию о прибыли компании.
+void TravelService::printCompanyProfit() const {
+	std::cout << "На данный момент прибыль компании составляет " << profit << " рублей.\n\n";
 }
