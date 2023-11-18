@@ -6,7 +6,7 @@
 int main(void) {
 	setlocale(LC_ALL, "ru");
 	
-	// Статический метод Account::createFromConsole() возвращает экземпляр класса Account.
+	// Статический метод Account::createFromConsole() указатель на экземпляр класса Account.
 	TravelService* ts = TravelService::createFromConsole();
 
 	Timestamp tmp1(18, 11, 2023, 6, 0);
@@ -52,7 +52,7 @@ int main(void) {
 	demo2.erase(demo2.cbegin(), demo2.cbegin() + 2); // Удаление подстроки
 	std::cout << demo2 << std::endl;
 	std::cout << demo2.find("t") << ' ' << demo2.rfind("t") << std::endl; // Методы поиска подстрок
-	std::cout << demo2.contains("text") << std::endl; // Наличие подстроки в строке
+	std::cout << demo2.ends_with("text"); // Наличие подстроки в конце строки
 
 	return 0;
 }
