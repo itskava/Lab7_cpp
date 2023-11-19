@@ -15,7 +15,7 @@ Account::Account(const Account& other) {
 	this->telephone = other.telephone;
 	this->age = other.age;
 	this->balance = other.balance;
-	this->tickets.assign(other.tickets.begin(), other.tickets.end());
+	std::copy(other.tickets.begin(), other.tickets.end(), this->tickets.begin());
 }
 
 Account::~Account() = default;
@@ -50,7 +50,7 @@ Account& Account::operator=(const Account& other) {
 	this->telephone = other.telephone;
 	this->age = other.age;
 	this->balance = other.balance;
-	this->tickets.assign(other.tickets.begin(), other.tickets.end());
+	std::copy(other.tickets.begin(), other.tickets.end(), this->tickets.begin());
 
 	return *this;
 }
