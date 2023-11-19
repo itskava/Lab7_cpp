@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <iostream>
+#include <array>
 
 // Класс, представляющий собой временную отметку.
 // Хранит в себе часы, минуты, день и месяц.
@@ -15,6 +16,7 @@ private:
 	bool isLeapYear(int year) const;
 	int getDaysInMonth(int month, int year) const;
 	void normalize();
+	std::array<int, 5> getLocalTime() const;
 
 public:
 	Timestamp();
