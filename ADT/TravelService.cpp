@@ -96,17 +96,25 @@ void TravelService::addRoute(const Route& route) {
 }
 
 // Метод, предназначенный для удаления маршрута.
-void TravelService::removeRoute(const Route& route) {
-	std::size_t index = 0;
-	for (const auto& rt : routes) {
-		if (rt == route) {
-			routes.erase(routes.begin() + index);
+void TravelService::removeRoute(std::size_t desired_ind) {
+	if (routes.empty()) {
+		std::cout << "Сейчас нет доступных маршрутов";
+		return;
+	}
+
+	if (desired_ind < 1 || desired_ind > routes.size()) {
+		std::cout << "Введен некорректный номер билета." << std::endl;
+		return;
+	}
+	
+	std::size_t index = 1;
+	for (auto it = routes.begin(); it != routes.end(); it++, index++) {
+		if (index == desired_ind) {
+			routes.erase(it);
 			std::cout << "Маршрут успешно удален.\n";
 			return;
 		}
-		index++;
 	}
-	std::cout << "Данный маршрут не найден, удаление невозможно.\n";
 }
 
 // Метод, производящий поиск маршрутов по выбранному городу.
@@ -179,29 +187,29 @@ void TravelService::buyTicket(const Route& route) const {
 
 // Метод, предназначенный для продажи билета.
 void TravelService::sellTicket(std::size_t desired_ind) {
+	if (account->tickets.empty()) {
+		std::cout << "На Вашем аккаунте нет купленных билетов.\n\n";
+		return;
+	}
+
 	if (desired_ind < 1 || desired_ind > account->tickets.size()) {
 		std::cout << "Введен некорректный номер купленного билета." << std::endl;
 		return;
 	}
 
-	if (!account->tickets.empty()) {
-		std::size_t index = 1;
-		Route ticket;
+	std::size_t index = 1;
 
-		for (auto it = account->tickets.begin(); it != account->tickets.end(); it++, index++) {
-			if (index == desired_ind) {
-				ticket = *it;
-				account->tickets.erase(it);
-				break;
-			}
+	for (auto it = account->tickets.begin(); it != account->tickets.end(); it++, index++) {
+		if (index == desired_ind) {
+			account->balance += it->ticket_price;
+			profit -= it->ticket_price;
+			account->tickets.erase(it);
+			break;
 		}
-
-		account->balance += ticket.ticket_price;
-		profit -= ticket.ticket_price;
-
-		std::cout << "Билет успешно продан, на Вашем счету " << account->balance << " рублей.\n\n";
 	}
-	else std::cout << "На Вашем аккаунте нет купленных билетов.\n\n";
+
+	std::cout << "Билет успешно продан, на Вашем счету " << account->balance << " рублей.\n\n";
+	
 }
 
 // Метод, распечатывающий информацию о купленном билете.

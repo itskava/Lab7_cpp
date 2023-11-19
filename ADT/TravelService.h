@@ -43,7 +43,7 @@ public:
 	
 	void addRoute(const Route& route);
 
-	void removeRoute(const Route& route);
+	void removeRoute(std::size_t desired_ind);
 
 	void searchTicketsByCity(const std::string& desired_city) const;
 
@@ -51,7 +51,7 @@ public:
 
 	void buyTicket(const Route& route) const;
 
-	void sellTicket(std::size_t index);
+	void sellTicket(std::size_t desired_ind);
 
 	void printTicketsInfo() const;
 
