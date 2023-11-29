@@ -17,6 +17,8 @@ private:
 	int getDaysInMonth(int month, int year) const;
 	void normalize();
 	std::array<int, 5> getLocalTime() const;
+	void setDefault();
+	bool checkDateCorrectness(int day, int month, int year, int hour, int minute) const;
 
 public:
 	Timestamp();
@@ -28,6 +30,10 @@ public:
 	~Timestamp();
 
 	static Timestamp createFromConsole();
+
+	void changeData(int day, int month, int year, int hour, int minute);
+
+	bool isDefault() const;
 
 	bool operator==(const Timestamp& other) const;
 
