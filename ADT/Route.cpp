@@ -2,7 +2,7 @@
 #include <iostream>
 
 Route::Route(
-	int ticket_price,
+	unsigned int ticket_price,
 	const std::string& departure_city,
 	const std::string& arrival_city,
 	const Timestamp& departure_time,

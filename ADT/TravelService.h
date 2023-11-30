@@ -16,8 +16,7 @@ public:
 		const std::string& name,
 		const std::string& email,
 		const std::string& telephone,
-		int age,
-		int balance);
+		int age);
 	
 	TravelService();
 
@@ -25,17 +24,17 @@ public:
 
 	~TravelService();
 
-	static TravelService* createFromConsole();
+	static TravelService createFromConsole();
 
-	void printAvailableRouts() const;
+	void displayAvailableRouts() const;
 
-	void printAccountInfo() const;
+	void displayAccountInfo() const;
 
-	void changeAccountInfo(
+	void changeAccountData(
 		const std::string& name,
 		const std::string& email,
 		const std::string& telephone,
-		int age);
+		short age);
 
 	int getBalance() const;
 
@@ -53,7 +52,7 @@ public:
 
 	void sellTicket(std::size_t desired_ind);
 
-	void printTicketsInfo() const;
+	void displayTicketsInfo() const;
 
-	static void printCompanyProfit();
+	static void displayCompanyProfit();
 };

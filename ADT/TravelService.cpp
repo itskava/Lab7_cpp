@@ -7,33 +7,36 @@ TravelService::TravelService(
 	const std::string& name,
 	const std::string& email,
 	const std::string& telephone,
-	int age,
-	int balance)
+	int age)
 {
-	account = new Account(name, email, telephone, age, balance);
+	account = new Account(name, email, telephone, age);
 }
 
 TravelService::TravelService() {
-	account = new Account("", "", "", 0, 0);
+	account = new Account();
 }
 
 TravelService::TravelService(const Account& account) {
 	this->account = new Account();
-	*this->account = account;
+	// Присваивание по полям обусловлено тем, что было принято решение запретить копирование объектов
+	// для того, чтобы аккаунт был уникальным, а это - единственное место, в котором необходимо "копировать" объект.
+	this->account->name = account.name;
+	this->account->email = account.email;
+	this->account->telephone = account.telephone;
+	this->account->age = account.age;
 }
 
 TravelService::~TravelService() {
 	delete account;
 }
 
-// Статический метод, необходимый для создания экземпляра класса FlightBookingService через консоль.
-TravelService* TravelService::createFromConsole() {
-	TravelService* travel_service = new TravelService(Account::createFromConsole());
-	return travel_service;
+// Статический метод, предназначенный для создания экземпляров класса через консоль.
+TravelService TravelService::createFromConsole() {
+	return TravelService(Account::createFromConsole());
 }
 
 // Метод, распечатывающий информации обо всех существующих маршрутах.
-void TravelService::printAvailableRouts() const {
+void TravelService::displayAvailableRouts() const {
 	if (!routes.empty()) {
 		std::cout << "Доступные маршруты:\n\n";
 		std::size_t index = 1;
@@ -48,27 +51,34 @@ void TravelService::printAvailableRouts() const {
 	}
 }
 
-// Метод, распечатывающий информацию об аккаунте.
-void TravelService::printAccountInfo() const {
-	std::cout << "Данные аккаунта:\n";
+// Метод, предназначенный для вывода информации о профиле.
+void TravelService::displayAccountInfo() const {
+	std::cout << "Информация об аккаунте:\n";
 	std::cout << "ФИО: " << account->name << '\n';
 	std::cout << "Возраст: " << account->age << '\n';
-	std::cout << "Почта: " << account->email << '\n';
-	std::cout << "Телефон: " << account->telephone << "\n\n";
+	std::cout << "Электронная почта: " << account->email << '\n';
+	std::cout << "Контактный телефон: " << account->telephone << "\n\n";
 }
 
 // Метод, предназначенный для изменения информации профиля.
-void TravelService::changeAccountInfo(
+void TravelService::changeAccountData(
 	const std::string& name,
 	const std::string& email,
 	const std::string& telephone,
-	int age)
+	short age)
 {
-	account->name = name;
-	account->email = email;
-	account->telephone = telephone;
-	account->age = age;
-	std::cout << "Учетные данные Вашего аккаунта успешно изменены.\n\n";
+	try {
+		account->checkAccountDataCorrectness(name, email, telephone, age);
+		account->name = name;
+		account->email = email;
+		account->telephone = telephone;
+		account->age = age;
+		std::cout << "Информация об аккаунте успешно изменена.\n\n";
+	}
+	catch (const std::string& ex) {
+		std::cerr << ex << std::endl;
+		std::cerr << "Пожалуйста, повторите попытку." << std::endl;
+	}
 }
 
 // Метод, возвращающий баланс пользователя.
@@ -161,7 +171,12 @@ void TravelService::searchTicketsByPrice(int available_money) const {
 
 // Метод, предназначенный для покупки билетов.
 void TravelService::buyTicket(const Route& route) const {
-	bool is_not_enough_money = false;
+	if (!account->isInitialized()) {
+		std::cout << "Ваш аккаунт не инициализирован. Пожалуйста, обновите информацию профиля." << std::endl;
+		return;
+	}
+
+ 	bool is_not_enough_money = false;
 	for (const auto& rt : routes) {
 		if (rt == route) {
 			if (account->balance >= rt.ticket_price) {
@@ -187,6 +202,11 @@ void TravelService::buyTicket(const Route& route) const {
 
 // Метод, предназначенный для продажи билета.
 void TravelService::sellTicket(std::size_t desired_ind) {
+	if (!account->isInitialized()) {
+		std::cout << "Ваш аккаунт не инициализирован. Пожалуйста, обновите информацию профиля." << std::endl;
+		return;
+	}
+
 	if (account->tickets.empty()) {
 		std::cout << "На Вашем аккаунте нет купленных билетов.\n\n";
 		return;
@@ -213,7 +233,7 @@ void TravelService::sellTicket(std::size_t desired_ind) {
 }
 
 // Метод, распечатывающий информацию о купленном билете.
-void TravelService::printTicketsInfo() const {
+void TravelService::displayTicketsInfo() const {
 	if (account->tickets.empty()) {
 		std::cout << "На Вашем аккаунте нет купленных билетов.\n";
 		return;
@@ -226,6 +246,6 @@ void TravelService::printTicketsInfo() const {
 }
 
 // Метод, распечатывающий информацию о прибыли компании.
-void TravelService::printCompanyProfit() {
+void TravelService::displayCompanyProfit() {
 	std::cout << "На данный момент прибыль компании составляет " << profit << " рублей.\n\n";
 }
