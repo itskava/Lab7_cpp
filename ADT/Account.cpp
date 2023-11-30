@@ -33,16 +33,16 @@ Account::~Account() = default;
 Account Account::createFromConsole() {
 	std::string name, email, telephone;
 	int age;
-	std::cout << "Enter Your full name: ";
+	std::cout << "Введите Ваше ФИО: ";
 	std::getline(std::cin, name);
 
-	std::cout << "Enter Your email address: ";
+	std::cout << "Введите Ваш адрес электронной почты: ";
 	std::getline(std::cin, email);
 
-	std::cout << "Enter Your telephone: ";
+	std::cout << "Введише Ваш телефон: ";
 	std::getline(std::cin, telephone);
 
-	std::cout << "Enter Your age: ";
+	std::cout << "Введите Ваш возраст: ";
 	std::cin >> age;
 
 	return Account(name, email, telephone, age);
