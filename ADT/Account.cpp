@@ -75,13 +75,13 @@ void Account::checkAccountDataCorrectness(
 
 // Метод, предназначенный для базовой проверки правильности адреса электронной почты.
 bool Account::checkEmailCorrectness(const std::string& email) const {
-	bool emailCorrectness = true;
-	if (std::find(email.cbegin(), email.cend(), '@') == email.cend()) emailCorrectness = false;
-	else if (std::find(email.cbegin(), email.cend(), '.') == email.cend()) emailCorrectness = false;
-	else if (std::find(email.cbegin(), email.cend(), '@.') != email.cend()) emailCorrectness = false;
-	else if (email[0] == '@' || email[email.length() - 1] == '.') emailCorrectness = false;
+	bool email_correctness = true;
+	if (std::find(email.cbegin(), email.cend(), '@') == email.cend()) email_correctness = false;
+	else if (std::find(email.cbegin(), email.cend(), '.') == email.cend()) email_correctness = false;
+	else if (std::find(email.cbegin(), email.cend(), '@.') != email.cend()) email_correctness = false;
+	else if (email[0] == '@' || email[email.length() - 1] == '.') email_correctness = false;
 
-	return emailCorrectness;
+	return email_correctness;
 }
 
 // Метод, предназначенный для определения того, инициализирован аккаунт или нет.

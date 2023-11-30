@@ -83,21 +83,21 @@ void Timestamp::setDefault() {
 // Метод, предназначенный для проверки действительности временной метки.
 bool Timestamp::checkDateCorrectness(int day, int month, int year, int hour, int minute) const {
 	std::array<int, 5> local_time = getLocalTime();
-	bool dateCorrectness = false;
+	bool date_correctness = false;
 
-	if (year > local_time[2]) dateCorrectness = true;
+	if (year > local_time[2]) date_correctness = true;
 	else if (year == local_time[2]) {
-		if (month > local_time[1]) dateCorrectness = true;
+		if (month > local_time[1]) date_correctness = true;
 		else if (month == local_time[1]) {
-			if (day > local_time[0]) dateCorrectness = true;
+			if (day > local_time[0]) date_correctness = true;
 			else if (day == local_time[0]) {
-				if (hour > local_time[3]) dateCorrectness = true;
-				else if (hour == local_time[3] && minute >= local_time[4]) dateCorrectness = true;
+				if (hour > local_time[3]) date_correctness = true;
+				else if (hour == local_time[3] && minute >= local_time[4]) date_correctness = true;
 			}
 		}
 	}
 
-	return dateCorrectness;
+	return date_correctness;
 }
 
 // Метод, предназначенный для изменения данных временной метки.
