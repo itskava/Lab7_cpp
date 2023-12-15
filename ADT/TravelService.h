@@ -1,7 +1,13 @@
 ﻿#pragma once
 
-#include "Account.h"
+#include "BaseAccount.h"
+#include "PremiumAccount.h"
 #include <vector>
+#include <type_traits>
+#include <typeinfo>
+
+template<class T>
+concept IsAccount = std::same_as<T, BaseAccount> || std::same_as<T, PremiumAccount>;
 
 // Класс, представляющий собой сам сервис для покупки и продажи билетов для путешествий.
 // Содержит в себе вектор, хранящий все доступные маршруты, и указатель на аккаунт пользователя.
@@ -9,6 +15,7 @@ class TravelService {
 private:
 	std::vector<Route> routes;
 	Account* account;
+	static bool is_premium;
 	static long profit;
 
 public:
@@ -20,7 +27,15 @@ public:
 	
 	TravelService();
 
-	TravelService(const Account& account);
+	template<IsAccount T>
+	TravelService(const T& account) {
+		if constexpr (std::same_as<T, BaseAccount>) {
+			this->account = new BaseAccount(account);
+		}
+		else if constexpr (std::same_as<T, PremiumAccount>) {
+			this->account = new PremiumAccount(account);
+		}
+	}
 
 	~TravelService();
 
@@ -38,7 +53,7 @@ public:
 
 	int getBalance() const;
 
-	void topUpBalance(int amount);
+	void topUpBalance(unsigned int amount);
 	
 	void addRoute(const Route& route);
 
@@ -46,7 +61,7 @@ public:
 
 	void searchTicketsByCity(const std::string& desired_city) const;
 
-	void searchTicketsByPrice(int available_money) const;
+	void searchTicketsByPrice(unsigned int available_money) const;
 
 	void buyTicket(const Route& route) const;
 
@@ -55,4 +70,6 @@ public:
 	void displayTicketsInfo() const;
 
 	static void displayCompanyProfit();
+
+	void upgradeToPremium();
 };

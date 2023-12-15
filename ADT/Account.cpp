@@ -5,7 +5,7 @@ Account::Account(
 	const std::string& name,
 	const std::string& email, 
 	const std::string& telephone,
-	int age) 
+	short age) 
 {
 	try {
 		checkAccountDataCorrectness(name, email, telephone, age);
@@ -28,25 +28,6 @@ Account::Account() {
 }
 
 Account::~Account() = default;
-
-// Статический метод, предназначенный для создания экземпляра класса через консоль.
-Account Account::createFromConsole() {
-	std::string name, email, telephone;
-	int age;
-	std::cout << "Введите Ваше ФИО: ";
-	std::getline(std::cin, name);
-
-	std::cout << "Введите Ваш адрес электронной почты: ";
-	std::getline(std::cin, email);
-
-	std::cout << "Введише Ваш телефон: ";
-	std::getline(std::cin, telephone);
-
-	std::cout << "Введите Ваш возраст: ";
-	std::cin >> age;
-
-	return Account(name, email, telephone, age);
-}
 
 // Метод, предназначенный для установки информации профиля по умолчанию.
 void Account::setDefaultValues() {

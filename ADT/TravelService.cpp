@@ -9,30 +9,25 @@ TravelService::TravelService(
 	const std::string& telephone,
 	int age)
 {
-	account = new Account(name, email, telephone, age);
+	account = new BaseAccount(name, email, telephone, age);
+	is_premium = false;
 }
 
 TravelService::TravelService() {
-	account = new Account();
-}
-
-TravelService::TravelService(const Account& account) {
-	this->account = new Account();
-	// Присваивание по полям обусловлено тем, что было принято решение запретить копирование объектов
-	// для того, чтобы аккаунт был уникальным, а это - единственное место, в котором необходимо "копировать" объект.
-	this->account->name = account.name;
-	this->account->email = account.email;
-	this->account->telephone = account.telephone;
-	this->account->age = account.age;
+	account = new BaseAccount();
+	is_premium = false;
 }
 
 TravelService::~TravelService() {
 	delete account;
 }
 
+// TODO
+
 // Статический метод, предназначенный для создания экземпляров класса через консоль.
 TravelService TravelService::createFromConsole() {
-	return TravelService(Account::createFromConsole());
+	return TravelService(BaseAccount::createFromConsole());
+	is_premium = false;
 }
 
 // Метод, распечатывающий информации обо всех существующих маршрутах.
@@ -87,7 +82,7 @@ int TravelService::getBalance() const {
 }
 
 // Метод, предназначенный для пополнения баланса пользователя.
-void TravelService::topUpBalance(int amount) {
+void TravelService::topUpBalance(unsigned int amount) {
 	account->balance += amount;
 	std::cout << "Ваш баланс успешно пополнен на " << amount << " рублей.\n";
 	std::cout << "Теперь он составляет " << account->balance << " рублей.\n\n";
@@ -150,7 +145,7 @@ void TravelService::searchTicketsByCity(const std::string& desired_city) const {
 
 // Метод, производящий поиск маршрутов по заданной цене.
 // Выводит список всех доступных городов, цена билетов которых не превышает заданную.
-void TravelService::searchTicketsByPrice(int available_money) const {
+void TravelService::searchTicketsByPrice(unsigned int available_money) const {
 	bool is_found = false;
 	std::size_t index = 1;
 	for (const auto& rt : routes) {
@@ -176,7 +171,7 @@ void TravelService::buyTicket(const Route& route) const {
 		return;
 	}
 
- 	bool is_not_enough_money = false;
+	bool is_not_enough_money = false;
 	for (const auto& rt : routes) {
 		if (rt == route) {
 			if (account->balance >= rt.ticket_price) {
@@ -248,4 +243,18 @@ void TravelService::displayTicketsInfo() const {
 // Метод, распечатывающий информацию о прибыли компании.
 void TravelService::displayCompanyProfit() {
 	std::cout << "На данный момент прибыль компании составляет " << profit << " рублей.\n\n";
+}
+
+void TravelService::upgradeToPremium() {
+	if (is_premium) return;
+
+	if (account->balance >= 2000) {
+		Account* temp = account;
+		account = new PremiumAccount();
+		account = dynamic_cast<PremiumAccount*>(temp);
+		delete temp;
+	}
+	else {
+		std::cout << "На вашем аккаунте недостаточно средств, чтобы получить премиум-аккаунт." << std::endl;
+	}
 }

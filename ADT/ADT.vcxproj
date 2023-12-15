@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Account.cpp" />
+    <ClCompile Include="BaseAccount.cpp" />
+    <ClCompile Include="PremiumAccount.cpp" />
     <ClCompile Include="TravelService.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Route.cpp" />
@@ -27,6 +29,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
+    <ClInclude Include="BaseAccount.h" />
+    <ClInclude Include="PremiumAccount.h" />
     <ClInclude Include="TravelService.h" />
     <ClInclude Include="Route.h" />
     <ClInclude Include="Timestamp.h" />
