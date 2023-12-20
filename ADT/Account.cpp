@@ -69,3 +69,33 @@ bool Account::checkEmailCorrectness(const std::string& email) const {
 bool Account::isInitialized() const {
 	return !(name == "" && email == "" && telephone == "" && age == 0);
 }
+
+// Методы для демонстрации перегрузки метода базового класса в производном.
+void Account::overloadWithoutCall() const {
+	std::cout << "Account::overloadWithoutCall()" << std::endl;
+}
+
+void Account::overloadWithCall() const {
+	std::cout << "Account::overloadWithCall()";
+}
+
+// Метод для демонстрации вызова виртуального метода производного класса из базового.
+void Account::callVirtualMethodFromBaseClass() const {
+	displayAccountInfo();
+}
+
+std::string Account::getName() const {
+	return name;
+}
+
+std::string Account::getEmail() const {
+	return email;
+}
+
+std::string Account::getTelephone() const {
+	return telephone;
+}
+
+int Account::getAge() const {
+	return age;
+}

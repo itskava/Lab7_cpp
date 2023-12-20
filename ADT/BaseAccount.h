@@ -18,6 +18,12 @@ public:
 
 	static BaseAccount createFromConsole();
 
+	void overloadWithoutCall() const;
+
+	void overloadWithCall() const;
+
+	BaseAccount& operator=(const Account& account) override;
+
 	friend std::ostream& operator<<(std::ostream& out, const BaseAccount& obj);
 };
 

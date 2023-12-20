@@ -21,9 +21,6 @@
     <ClCompile Include="Timestamp.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
-    <ClCompile Include="Route.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
     <ClCompile Include="Account.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
@@ -34,6 +31,9 @@
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
     <ClCompile Include="PremiumAccount.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
+    <ClCompile Include="AdditionalRouteInfo.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
   </ItemGroup>
@@ -54,6 +54,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="PremiumAccount.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="AdditionalRouteInfo.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -13,9 +13,9 @@ protected:
 	std::string telephone;
 	short age;
 	unsigned int balance;
-	std::vector<Route> tickets;
+	std::vector<Route<std::string>> tickets;
 
-	virtual void setDefaultValues();
+	void setDefaultValues();
 
 	void checkAccountDataCorrectness(const std::string& name, const std::string& email, const std::string& telephone, short age) const;
 
@@ -36,5 +36,19 @@ public:
 
 	virtual void displayAccountInfo() const = 0;
 
-	Account& operator=(const Account& other) = delete;
+	void overloadWithoutCall() const;
+
+	void overloadWithCall() const;
+
+	void callVirtualMethodFromBaseClass() const;
+
+	std::string getName() const;
+
+	std::string getEmail() const;
+
+	std::string getTelephone() const;
+	
+	int getAge() const;
+
+	virtual Account& operator=(const Account& other) = 0;
 };

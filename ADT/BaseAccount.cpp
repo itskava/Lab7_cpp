@@ -21,6 +21,7 @@ BaseAccount::~BaseAccount() = default;
 BaseAccount BaseAccount::createFromConsole() {
 	std::string name, email, telephone;
 	int age;
+
 	std::cout << "Введите Ваше ФИО: ";
 	std::getline(std::cin, name);
 
@@ -44,6 +45,28 @@ void BaseAccount::displayAccountInfo() const {
 	std::cout << "Баланс: " << balance << std::endl;
 }
 
+// Методы для демонстрации перегрузки метода базового класса в производном.
+void BaseAccount::overloadWithoutCall() const {
+	std::cout << "BaseAccount::overloadWithoutCall()" << std::endl;
+}
+
+void BaseAccount::overloadWithCall() const {
+	Account::overloadWithCall();
+	std::cout << " + BaseAccount::overloadWithCall()" << std::endl;
+}
+
+BaseAccount& BaseAccount::operator=(const Account& account) {
+	this->name = account.getName();
+	this->email = account.getEmail();
+	this->telephone = account.getTelephone();
+	this->age = account.getAge();
+	this->balance = 0;
+	
+	return *this;
+}
+
 std::ostream& operator<<(std::ostream& out, const BaseAccount& obj) {
-	return out;
+	return out << "ФИО: " << obj.name << "\nКонтактный телефон : " << obj.telephone 
+		<< "\nАдрес электронной почты: " << obj.email << "\nВозраст: " << obj.age 
+		<< "\nБаланс: " << obj.balance << std::endl;
 }

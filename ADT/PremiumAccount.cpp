@@ -9,7 +9,7 @@ PremiumAccount::PremiumAccount()
 PremiumAccount::PremiumAccount(const PremiumAccount& other) {
 	this->name = other.name;
 	this->email = other.email;
-	this->telephone = other.email;
+	this->telephone = other.telephone;
 	this->age = other.age;
 	this->balance = 0;
 	this->bonuses = 0;
@@ -41,17 +41,9 @@ PremiumAccount PremiumAccount::createFromConsole() {
 	return PremiumAccount(name, email, telephone, age);
 }
 
-void PremiumAccount::setDefaultValues() {
-	this->name = "";
-	this->email = "";
-	this->telephone = "";
-	this->age = 0;
-	this->balance = 0;
-	this->bonuses = 0;
-}
-
-unsigned int PremiumAccount::calculateBonuses(int ticket_price) const {
-	return static_cast<unsigned int>(ticket_price * cashback_percent);
+// Метод, предназначенный для подсчёта бонусов с покупки билета.
+unsigned PremiumAccount::calculateBonuses(int ticket_price) const {
+	return static_cast<unsigned>(ticket_price * cashback_percent);
 }
 
 void PremiumAccount::displayAccountInfo() const {
@@ -63,7 +55,19 @@ void PremiumAccount::displayAccountInfo() const {
 	std::cout << "Количество бонусов: " << bonuses << std::endl;
 }
 
-// TODO
+PremiumAccount& PremiumAccount::operator=(const Account& account) {
+	this->name = account.getName();
+	this->email = account.getEmail();
+	this->telephone = account.getTelephone();
+	this->age = account.getAge();
+	this->balance = 0;
+	this->bonuses = 0;
+
+	return *this;
+}
+
 std::ostream& operator<<(std::ostream& out, const PremiumAccount& obj) {
-	return out;
+	return out << "ФИО: " << obj.name << "\nКонтактный телефон : " << obj.telephone
+		<< "\nАдрес электронной почты: " << obj.email << "\nВозраст: " << obj.age
+		<< "\nБаланс: " << obj.balance << "\nКоличество бонусов: " << obj.bonuses << std::endl;
 }

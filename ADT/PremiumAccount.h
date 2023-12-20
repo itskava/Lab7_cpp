@@ -10,9 +10,7 @@ private:
 private:
 	PremiumAccount(const PremiumAccount& other);
 
-	void setDefaultValues() override;
-	
-	unsigned int calculateBonuses(int ticket_price) const;
+	unsigned calculateBonuses(int ticket_price) const;
 
 	friend class TravelService;
 
@@ -26,6 +24,8 @@ public:
 	void displayAccountInfo() const override;
 
 	static PremiumAccount createFromConsole();
+
+	PremiumAccount& operator=(const Account& account) override;
 
 	friend std::ostream& operator<<(std::ostream& out, const PremiumAccount& obj);
 };

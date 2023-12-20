@@ -1,5 +1,2 @@
-﻿  TravelService.cpp
-  main.cpp
-  Generating Code...
-TravelService.obj : error LNK2001: unresolved external symbol "private: static bool TravelService::is_premium" (?is_premium@TravelService@@0_NA)
-C:\Users\timof\source\repos\ADT\x64\Debug\ADT.exe : fatal error LNK1120: 1 unresolved externals
+﻿  main.cpp
+  ADT.vcxproj -> C:\Users\timof\source\repos\ADT\x64\Debug\ADT.exe

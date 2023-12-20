@@ -3,8 +3,7 @@
 #include "BaseAccount.h"
 #include "PremiumAccount.h"
 #include <vector>
-#include <type_traits>
-#include <typeinfo>
+#include <concepts>
 
 template<class T>
 concept IsAccount = std::same_as<T, BaseAccount> || std::same_as<T, PremiumAccount>;
@@ -13,9 +12,8 @@ concept IsAccount = std::same_as<T, BaseAccount> || std::same_as<T, PremiumAccou
 // Содержит в себе вектор, хранящий все доступные маршруты, и указатель на аккаунт пользователя.
 class TravelService {
 private:
-	std::vector<Route> routes;
+	std::vector<Route<std::string>> routes;
 	Account* account;
-	static bool is_premium;
 	static long profit;
 
 public:
@@ -53,17 +51,17 @@ public:
 
 	int getBalance() const;
 
-	void topUpBalance(unsigned int amount);
+	void topUpBalance(unsigned amount);
 	
-	void addRoute(const Route& route);
+	void addRoute(const Route<std::string>& route);
 
 	void removeRoute(std::size_t desired_ind);
 
 	void searchTicketsByCity(const std::string& desired_city) const;
 
-	void searchTicketsByPrice(unsigned int available_money) const;
+	void searchTicketsByPrice(unsigned available_money) const;
 
-	void buyTicket(const Route& route) const;
+	void buyTicket(const Route<std::string>& route) const;
 
 	void sellTicket(std::size_t desired_ind);
 
@@ -73,3 +71,4 @@ public:
 
 	void upgradeToPremium();
 };
+

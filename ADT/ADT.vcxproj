@@ -20,15 +20,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Account.cpp" />
+    <ClCompile Include="AdditionalRouteInfo.cpp" />
     <ClCompile Include="BaseAccount.cpp" />
     <ClCompile Include="PremiumAccount.cpp" />
     <ClCompile Include="TravelService.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Route.cpp" />
     <ClCompile Include="Timestamp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
+    <ClInclude Include="AdditionalRouteInfo.h" />
     <ClInclude Include="BaseAccount.h" />
     <ClInclude Include="PremiumAccount.h" />
     <ClInclude Include="TravelService.h" />
