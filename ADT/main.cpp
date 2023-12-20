@@ -35,8 +35,7 @@ int main() {
 	delete virtual_demo2;
 	
 	std::unique_ptr<AdditionalRouteInfo> info = std::make_unique<AdditionalRouteInfo>(AdditionalRouteInfo("windy, rainy", "cool"));
-	Route<AdditionalRouteInfo> template_demo(20000, "Suzop", "Khleborob", Timestamp(), Timestamp(), 
-		std::move(info));
+	Route<AdditionalRouteInfo> template_demo(20000, "Suzop", "Khleborob", Timestamp(), Timestamp(), std::move(info));
 	
 	std::cout << template_demo;
 	template_demo.displayAdditionalInfo();

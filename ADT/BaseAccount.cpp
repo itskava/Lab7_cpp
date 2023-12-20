@@ -1,4 +1,4 @@
-#include "BaseAccount.h"
+ï»¿#include "BaseAccount.h"
 
 BaseAccount::BaseAccount() 
 	: Account() 
@@ -22,30 +22,30 @@ BaseAccount BaseAccount::createFromConsole() {
 	std::string name, email, telephone;
 	int age;
 
-	std::cout << "Ââåäèòå Âàøå ÔÈÎ: ";
+	std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð’Ð°ÑˆÐµ Ð¤Ð˜Ðž: ";
 	std::getline(std::cin, name);
 
-	std::cout << "Ââåäèòå Âàø àäðåñ ýëåêòðîííîé ïî÷òû: ";
+	std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð’Ð°Ñˆ Ð°Ð´Ñ€ÐµÑ ÑÐ»ÐµÐºÑ‚Ñ€Ð¾Ð½Ð½Ð¾Ð¹ Ð¿Ð¾Ñ‡Ñ‚Ñ‹: ";
 	std::getline(std::cin, email);
 
-	std::cout << "Ââåäèøå Âàø òåëåôîí: ";
+	std::cout << "Ð’Ð²ÐµÐ´Ð¸ÑˆÐµ Ð’Ð°Ñˆ Ñ‚ÐµÐ»ÐµÑ„Ð¾Ð½: ";
 	std::getline(std::cin, telephone);
 
-	std::cout << "Ââåäèòå Âàø âîçðàñò: ";
+	std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð’Ð°Ñˆ Ð²Ð¾Ð·Ñ€Ð°ÑÑ‚: ";
 	std::cin >> age;
 
 	return BaseAccount(name, email, telephone, age);
 }
 
 void BaseAccount::displayAccountInfo() const {
-	std::cout << "ÔÈÎ: " << name << std::endl;
-	std::cout << "Êîíòàêòíûé òåëåôîí: " << telephone << std::endl;
-	std::cout << "Àäðåñ ýëåêòðîííîé ïî÷òû: " << email << std::endl;
-	std::cout << "Âîçðàñò: " << age << std::endl;
-	std::cout << "Áàëàíñ: " << balance << std::endl;
+	std::cout << "Ð¤Ð˜Ðž: " << name << std::endl;
+	std::cout << "ÐšÐ¾Ð½Ñ‚Ð°ÐºÑ‚Ð½Ñ‹Ð¹ Ñ‚ÐµÐ»ÐµÑ„Ð¾Ð½: " << telephone << std::endl;
+	std::cout << "ÐÐ´Ñ€ÐµÑ ÑÐ»ÐµÐºÑ‚Ñ€Ð¾Ð½Ð½Ð¾Ð¹ Ð¿Ð¾Ñ‡Ñ‚Ñ‹: " << email << std::endl;
+	std::cout << "Ð’Ð¾Ð·Ñ€Ð°ÑÑ‚: " << age << std::endl;
+	std::cout << "Ð‘Ð°Ð»Ð°Ð½Ñ: " << balance << std::endl;
 }
 
-// Ìåòîäû äëÿ äåìîíñòðàöèè ïåðåãðóçêè ìåòîäà áàçîâîãî êëàññà â ïðîèçâîäíîì.
+// ÐœÐµÑ‚Ð¾Ð´Ñ‹ Ð´Ð»Ñ Ð´ÐµÐ¼Ð¾Ð½ÑÑ‚Ñ€Ð°Ñ†Ð¸Ð¸ Ð¿ÐµÑ€ÐµÐ³Ñ€ÑƒÐ·ÐºÐ¸ Ð¼ÐµÑ‚Ð¾Ð´Ð° Ð±Ð°Ð·Ð¾Ð²Ð¾Ð³Ð¾ ÐºÐ»Ð°ÑÑÐ° Ð² Ð¿Ñ€Ð¾Ð¸Ð·Ð²Ð¾Ð´Ð½Ð¾Ð¼.
 void BaseAccount::overloadWithoutCall() const {
 	std::cout << "BaseAccount::overloadWithoutCall()" << std::endl;
 }
@@ -66,7 +66,7 @@ BaseAccount& BaseAccount::operator=(const Account& account) {
 }
 
 std::ostream& operator<<(std::ostream& out, const BaseAccount& obj) {
-	return out << "ÔÈÎ: " << obj.name << "\nÊîíòàêòíûé òåëåôîí : " << obj.telephone 
-		<< "\nÀäðåñ ýëåêòðîííîé ïî÷òû: " << obj.email << "\nÂîçðàñò: " << obj.age 
-		<< "\nÁàëàíñ: " << obj.balance << std::endl;
+	return out << "Ð¤Ð˜Ðž: " << obj.name << "\nÐšÐ¾Ð½Ñ‚Ð°ÐºÑ‚Ð½Ñ‹Ð¹ Ñ‚ÐµÐ»ÐµÑ„Ð¾Ð½ : " << obj.telephone 
+		<< "\nÐÐ´Ñ€ÐµÑ ÑÐ»ÐµÐºÑ‚Ñ€Ð¾Ð½Ð½Ð¾Ð¹ Ð¿Ð¾Ñ‡Ñ‚Ñ‹: " << obj.email << "\nÐ’Ð¾Ð·Ñ€Ð°ÑÑ‚: " << obj.age 
+		<< "\nÐ‘Ð°Ð»Ð°Ð½Ñ: " << obj.balance << std::endl;
 }

@@ -1,4 +1,4 @@
-#include "PremiumAccount.h"
+п»ї#include "PremiumAccount.h"
 
 PremiumAccount::PremiumAccount() 
 	: Account()
@@ -26,33 +26,33 @@ PremiumAccount::~PremiumAccount() = default;
 PremiumAccount PremiumAccount::createFromConsole() {
 	std::string name, email, telephone;
 	int age;
-	std::cout << "Введите Ваше ФИО: ";
+	std::cout << "Р’РІРµРґРёС‚Рµ Р’Р°С€Рµ Р¤РРћ: ";
 	std::getline(std::cin, name);
 
-	std::cout << "Введите Ваш адрес электронной почты: ";
+	std::cout << "Р’РІРµРґРёС‚Рµ Р’Р°С€ Р°РґСЂРµСЃ СЌР»РµРєС‚СЂРѕРЅРЅРѕР№ РїРѕС‡С‚С‹: ";
 	std::getline(std::cin, email);
 
-	std::cout << "Введише Ваш телефон: ";
+	std::cout << "Р’РІРµРґРёС€Рµ Р’Р°С€ С‚РµР»РµС„РѕРЅ: ";
 	std::getline(std::cin, telephone);
 
-	std::cout << "Введите Ваш возраст: ";
+	std::cout << "Р’РІРµРґРёС‚Рµ Р’Р°С€ РІРѕР·СЂР°СЃС‚: ";
 	std::cin >> age;
 
 	return PremiumAccount(name, email, telephone, age);
 }
 
-// Метод, предназначенный для подсчёта бонусов с покупки билета.
+// РњРµС‚РѕРґ, РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅРЅС‹Р№ РґР»СЏ РїРѕРґСЃС‡С‘С‚Р° Р±РѕРЅСѓСЃРѕРІ СЃ РїРѕРєСѓРїРєРё Р±РёР»РµС‚Р°.
 unsigned PremiumAccount::calculateBonuses(int ticket_price) const {
 	return static_cast<unsigned>(ticket_price * cashback_percent);
 }
 
 void PremiumAccount::displayAccountInfo() const {
-	std::cout << "ФИО: " << name << std::endl;
-	std::cout << "Контактный телефон: " << telephone << std::endl;
-	std::cout << "Адрес электронной почты: " << email << std::endl;
-	std::cout << "Возраст: " << age << std::endl;
-	std::cout << "Баланс: " << balance << std::endl;
-	std::cout << "Количество бонусов: " << bonuses << std::endl;
+	std::cout << "Р¤РРћ: " << name << std::endl;
+	std::cout << "РљРѕРЅС‚Р°РєС‚РЅС‹Р№ С‚РµР»РµС„РѕРЅ: " << telephone << std::endl;
+	std::cout << "РђРґСЂРµСЃ СЌР»РµРєС‚СЂРѕРЅРЅРѕР№ РїРѕС‡С‚С‹: " << email << std::endl;
+	std::cout << "Р’РѕР·СЂР°СЃС‚: " << age << std::endl;
+	std::cout << "Р‘Р°Р»Р°РЅСЃ: " << balance << std::endl;
+	std::cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ Р±РѕРЅСѓСЃРѕРІ: " << bonuses << std::endl;
 }
 
 PremiumAccount& PremiumAccount::operator=(const Account& account) {
@@ -67,7 +67,7 @@ PremiumAccount& PremiumAccount::operator=(const Account& account) {
 }
 
 std::ostream& operator<<(std::ostream& out, const PremiumAccount& obj) {
-	return out << "ФИО: " << obj.name << "\nКонтактный телефон : " << obj.telephone
-		<< "\nАдрес электронной почты: " << obj.email << "\nВозраст: " << obj.age
-		<< "\nБаланс: " << obj.balance << "\nКоличество бонусов: " << obj.bonuses << std::endl;
+	return out << "Р¤РРћ: " << obj.name << "\nРљРѕРЅС‚Р°РєС‚РЅС‹Р№ С‚РµР»РµС„РѕРЅ : " << obj.telephone
+		<< "\nРђРґСЂРµСЃ СЌР»РµРєС‚СЂРѕРЅРЅРѕР№ РїРѕС‡С‚С‹: " << obj.email << "\nР’РѕР·СЂР°СЃС‚: " << obj.age
+		<< "\nР‘Р°Р»Р°РЅСЃ: " << obj.balance << "\nРљРѕР»РёС‡РµСЃС‚РІРѕ Р±РѕРЅСѓСЃРѕРІ: " << obj.bonuses << std::endl;
 }

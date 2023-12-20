@@ -1,4 +1,4 @@
-#include "AdditionalRouteInfo.h"
+﻿#include "AdditionalRouteInfo.h"
 #include <iostream>
 
 AdditionalRouteInfo::AdditionalRouteInfo(const std::string& weather, const std::string& destination_info)
