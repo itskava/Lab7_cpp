@@ -61,6 +61,8 @@ public:
 
 	void searchTicketsByPrice(unsigned available_money) const;
 
+	void sortTicketsByPrice();
+
 	void buyTicket(const Route<std::string>& route) const;
 
 	void sellTicket(std::size_t desired_ind);

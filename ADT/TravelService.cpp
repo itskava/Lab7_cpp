@@ -1,5 +1,6 @@
 ﻿#include "TravelService.h"
 #include <iostream>
+#include <algorithm>
 
 long TravelService::profit = 0;
 
@@ -155,6 +156,14 @@ void TravelService::searchTicketsByPrice(unsigned available_money) const {
 	}
 }
 
+void TravelService::sortTicketsByPrice() {
+	auto sort_by_price = [](const Route<std::string>& lhs, const Route<std::string>& rhs) {
+		return lhs < rhs;
+	};
+
+	std::sort(routes.begin(), routes.end(), sort_by_price);
+	std::cout << "Билеты успешно отсортированы." << std::endl;
+}
 // Метод, предназначенный для покупки билетов.
 void TravelService::buyTicket(const Route<std::string>& route) const {
 	if (!account->isInitialized()) {

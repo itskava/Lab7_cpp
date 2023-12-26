@@ -21,9 +21,9 @@ private:
 	Timestamp departure_time;
 	Timestamp arrival_time;
 	std::unique_ptr<T> additional_info;
+	bool has_additional_value;
 
 	friend class TravelService;
-
 public:
 	Route(
 		unsigned int ticket_price,
@@ -41,7 +41,11 @@ public:
 
 	static Route<T> createFromConsole();
 
+	void updateAdditionalInfo(const std::unique_ptr<T> additional_info);
+
 	void displayAdditionalInfo() const;
+
+	bool operator<(const Route<T>& other) const;
 
 	bool operator==(const Route<T>& other) const;
 
@@ -69,12 +73,22 @@ Route<T>::Route(
 	departure_time(departure_time),
 	arrival_time(arrival_time),
 	additional_info(std::move(additional_info))
-{}
+{
+	if (static_cast<bool>(this->additional_info)) {
+		has_additional_value = true;
+	}
+	else {
+		has_additional_value = false;
+		this->additional_info = std::make_unique<T>();
+	}
+}
 
 template <HasOutput T>
 Route<T>::Route()
 	: Route(0, "", "", Timestamp(), Timestamp())
-{}
+{
+	has_additional_value = false;
+}
 
 
 template <HasOutput T>
@@ -85,6 +99,7 @@ Route<T>::Route(const Route<T>& other) {
 	this->departure_time = other.departure_time;
 	this->arrival_time = other.arrival_time;
 	this->additional_info = std::make_unique<T>(*other.additional_info);
+	this->has_additional_value = other.has_additional_value;
 }
 
 template <HasOutput T>
@@ -113,15 +128,26 @@ Route<T> Route<T>::createFromConsole() {
 	return Route(ticket_price, departure_city, arrival_city, departure_time, arrival_time);
 }
 
+template <HasOutput T>
+void Route<T>::updateAdditionalInfo(const std::unique_ptr<T> additional_info) {
+	this->additional_info = std::make_unique<T>(*additional_info);
+	if (static_cast<bool>(additional_info)) has_additional_value = true;
+}
+
 // Метод, предназначенный для вывода дополнительной информации о маршруте.
 template <HasOutput T>
 void Route<T>::displayAdditionalInfo() const {
-	if (additional_info) {
+	if (has_additional_value) {
 		std::cout << *additional_info << std::endl;
 	}
 	else {
 		std::cout << "Для данного маршрута нет дополнительной информации." << std::endl;
 	}
+}
+
+template<HasOutput T>
+bool Route<T>::operator<(const Route<T>& other) const {
+	return this->ticket_price < other.ticket_price;
 }
 
 template <HasOutput T> 
@@ -146,14 +172,16 @@ Route<T>& Route<T>::operator=(const Route<T>& other) {
 		this->arrival_city = other.arrival_city;
 		this->departure_time = other.departure_time;
 		this->arrival_time = other.arrival_time;
+		this->additional_info = std::make_unique<T>(*other.additional_info);
 	}
 
 	return *this;
 }
 
-template <HasOutput T>
-std::ostream& operator<<(std::ostream& out, const Route<T>& rt) {
-	return out << "Маршрут: " << rt.departure_city << " - " << rt.arrival_city 
-		<< "\n" << "Время взлёта: " << rt.departure_time << '\n' << "Время посадки: "
-		<< rt.arrival_time << '\n' << "Цена билета: " << rt.ticket_price << std::endl;
-}
+	template <HasOutput T>
+	std::ostream& operator<<(std::ostream& out, const Route<T>& rt) {
+		return out << "Маршрут: " << rt.departure_city << " - " << rt.arrival_city 
+			<< "\n" << "Время взлёта: " << rt.departure_time << '\n' << "Время посадки: "
+			<< rt.arrival_time << '\n' << "Цена билета: " << rt.ticket_price << std::endl;
+	}
+
