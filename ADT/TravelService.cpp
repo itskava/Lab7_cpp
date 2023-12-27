@@ -82,12 +82,11 @@ void TravelService::topUpBalance(unsigned amount) {
 
 // Метод, предназначенный для добавления маршрутов.
 void TravelService::addRoute(const Route<std::string>& route) {
-	for (const auto& rt : routes) {
-		if (rt == route) {
-			std::cout << "Данный маршрут уже существует, добавление невозможно.\n";
-			return;
-		}
+	if (std::find(routes.begin(), routes.end(), route) != routes.end()) {
+		std::cout << "Данный маршрут уже существует, добавление невозможно.\n";
+		return;
 	}
+
 	routes.push_back(route);
 	std::cout << "Маршрут успешно добавлен.\n";
 }
@@ -156,7 +155,9 @@ void TravelService::searchTicketsByPrice(unsigned available_money) const {
 	}
 }
 
+// Метод, предназначенный для сортировки билетов по цене.
 void TravelService::sortTicketsByPrice() {
+	// Лямбда функция для сравнения билетов по цене
 	auto sort_by_price = [](const Route<std::string>& lhs, const Route<std::string>& rhs) {
 		return lhs < rhs;
 	};
@@ -164,6 +165,7 @@ void TravelService::sortTicketsByPrice() {
 	std::sort(routes.begin(), routes.end(), sort_by_price);
 	std::cout << "Билеты успешно отсортированы." << std::endl;
 }
+
 // Метод, предназначенный для покупки билетов.
 void TravelService::buyTicket(const Route<std::string>& route) const {
 	if (!account->isInitialized()) {
@@ -172,49 +174,48 @@ void TravelService::buyTicket(const Route<std::string>& route) const {
 	}
 
 	bool is_not_enough_money = false;
-	for (const auto& rt : routes) {
-		if (rt == route) {
-			PremiumAccount* premium_ptr = dynamic_cast<PremiumAccount*>(account);
-			if (premium_ptr == nullptr) { // BaseAccount
-				if (account->balance >= rt.ticket_price) {
-					account->tickets.push_back(rt);
-					account->balance -= route.ticket_price;
-					profit += route.ticket_price;
-					std::cout << "Билет успешно куплен, на вашем счету "
-						"осталось " << account->balance << " рублей.\n\n";
-					return;
-				}
-				else {
-					is_not_enough_money = true;
-				}
+	if (std::find(routes.begin(), routes.end(), route) != routes.end()) {
+		PremiumAccount* premium_ptr = dynamic_cast<PremiumAccount*>(account);
+		if (premium_ptr == nullptr) { // BaseAccount
+			if (account->balance >= route.ticket_price) {
+				account->tickets.push_back(route);
+				account->balance -= route.ticket_price;
+				profit += route.ticket_price;
+				std::cout << "Билет успешно куплен, на вашем счету "
+					"осталось " << account->balance << " рублей.\n\n";
+				return;
 			}
 			else {
-				if (account->balance + premium_ptr->bonuses >= rt.ticket_price) {
-					unsigned new_bonuses = premium_ptr->calculateBonuses(rt.ticket_price);
-					
-					if (rt.ticket_price >= premium_ptr->bonuses) {
-						int price = rt.ticket_price;
-						price -= premium_ptr->bonuses;
-						premium_ptr->bonuses = 0;
-						account->balance -= price;
-					}
-					else {
-						premium_ptr -= rt.ticket_price;
-					}
+				is_not_enough_money = true;
+			}
+		}
+		else { // PremiumAccount
+			if (account->balance + premium_ptr->bonuses >= route.ticket_price) {
+				unsigned new_bonuses = premium_ptr->calculateBonuses(route.ticket_price);
 
-					premium_ptr->bonuses += new_bonuses;
-
-					std::cout << "Билет успешно куплен, на счету осталось "
-						<< account->balance << " рублей и " << premium_ptr->bonuses
-						<< " бонусов.\n\n";
-					return;
+				if (route.ticket_price >= premium_ptr->bonuses) {
+					int price = route.ticket_price;
+					price -= premium_ptr->bonuses;
+					premium_ptr->bonuses = 0;
+					account->balance -= price;
 				}
 				else {
-					is_not_enough_money = true;
+					premium_ptr -= route.ticket_price;
 				}
+
+				premium_ptr->bonuses += new_bonuses;
+
+				std::cout << "Билет успешно куплен, на счету осталось "
+					<< account->balance << " рублей и " << premium_ptr->bonuses
+					<< " бонусов.\n\n";
+				return;
+			}
+			else {
+				is_not_enough_money = true;
 			}
 		}
 	}
+	
 	if (is_not_enough_money) {
 		std::cout << "На Вашем счету недостаточно средств для покупки билета.\n\n";
 	}

@@ -21,7 +21,7 @@ private:
 	Timestamp departure_time;
 	Timestamp arrival_time;
 	std::unique_ptr<T> additional_info;
-	bool has_additional_value;
+	bool has_additional_info;
 
 	friend class TravelService;
 public:
@@ -75,10 +75,10 @@ Route<T>::Route(
 	additional_info(std::move(additional_info))
 {
 	if (static_cast<bool>(this->additional_info)) {
-		has_additional_value = true;
+		has_additional_info = true;
 	}
 	else {
-		has_additional_value = false;
+		has_additional_info = false;
 		this->additional_info = std::make_unique<T>();
 	}
 }
@@ -87,7 +87,7 @@ template <HasOutput T>
 Route<T>::Route()
 	: Route(0, "", "", Timestamp(), Timestamp())
 {
-	has_additional_value = false;
+	has_additional_info = false;
 }
 
 
@@ -99,7 +99,7 @@ Route<T>::Route(const Route<T>& other) {
 	this->departure_time = other.departure_time;
 	this->arrival_time = other.arrival_time;
 	this->additional_info = std::make_unique<T>(*other.additional_info);
-	this->has_additional_value = other.has_additional_value;
+	this->has_additional_info = other.has_additional_info;
 }
 
 template <HasOutput T>
@@ -128,16 +128,19 @@ Route<T> Route<T>::createFromConsole() {
 	return Route(ticket_price, departure_city, arrival_city, departure_time, arrival_time);
 }
 
+// Метод, предназначенный для добавления дополнительной информации о маршруте.
 template <HasOutput T>
 void Route<T>::updateAdditionalInfo(const std::unique_ptr<T> additional_info) {
-	this->additional_info = std::make_unique<T>(*additional_info);
-	if (static_cast<bool>(additional_info)) has_additional_value = true;
+	if (static_cast<bool>(additional_info)) {
+		this->additional_info = std::make_unique<T>(*additional_info);
+		has_additional_info = true;
+	}
 }
 
 // Метод, предназначенный для вывода дополнительной информации о маршруте.
 template <HasOutput T>
 void Route<T>::displayAdditionalInfo() const {
-	if (has_additional_value) {
+	if (has_additional_info) {
 		std::cout << *additional_info << std::endl;
 	}
 	else {
