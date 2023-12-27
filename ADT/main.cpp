@@ -16,12 +16,16 @@ int main() {
 	ts.addRoute(rt1);
 
 	ts.displayAvailableRouts();
-	ts.sortTicketsByPrice();
+	ts.sortTicketsByPrice(); // Сортировка с помощью std::sort()
 	ts.displayAvailableRouts();
 
 	BaseAccount* acc = new BaseAccount();
 	PremiumAccount* acc2 = new PremiumAccount();
 	Account* acc3 = new BaseAccount();
-	std::vector<Account*> container_demo = { acc, acc2, acc3 };
+	std::vector<Account*> container_demo = { acc, acc2, acc3 }; // Вектор, хранящий указатели на базовый и производный классы
+
+	delete acc;
+	delete acc2;
+	delete acc3;
 	return 0;
 }

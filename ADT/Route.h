@@ -90,7 +90,6 @@ Route<T>::Route()
 	has_additional_info = false;
 }
 
-
 template <HasOutput T>
 Route<T>::Route(const Route<T>& other) {
 	this->ticket_price = other.ticket_price;
